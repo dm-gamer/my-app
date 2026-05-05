@@ -11,13 +11,13 @@ pipeline {
 
         stage('Pull Docker Image') {
             steps {
-                sh "docker pull $IMAGE_NAME"
+                bat "docker pull $IMAGE_NAME"
             }
         }
 
         stage('Stop Old Container') {
             steps {
-                sh """
+                bat """
                 docker stop $CONTAINER_NAME || true
                 docker rm $CONTAINER_NAME || true
                 """
@@ -26,7 +26,7 @@ pipeline {
 
         stage('Run Container') {
             steps {
-                sh """
+                bat """
                 docker run -d -p $PORT:3000 --name $CONTAINER_NAME $IMAGE_NAME
                 """
             }
